@@ -1,10 +1,17 @@
 import { Global, Module } from '@nestjs/common';
 import { BananaService } from './banana.service';
 import { BananaController } from './banana.controller';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { BananaEntity } from 'src/mysql/schemas/banana.entity';
+import { MongooseModule } from '@nestjs/mongoose';
+import { Cat, CatSchema } from 'src/mongodb/schemas/cat.schema';
 
 @Global()
 @Module({
-  imports: [],
+  imports: [
+    TypeOrmModule.forFeature([BananaEntity]),
+    MongooseModule.forFeature([{ name: Cat.name, schema: CatSchema }]),
+  ],
   controllers: [BananaController],
   providers: [
     BananaService,

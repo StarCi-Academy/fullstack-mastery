@@ -9,6 +9,17 @@ import { EnvModule } from './env';
 import { WinstonModule } from 'nest-winston';
 import winston from 'winston';
 import { utilities as nestWinstonModuleUtilities } from 'nest-winston';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import envConfig from './env/env.config';
+import { UserEntity } from './mysql/schemas/user.entity';
+import { AppleEntity } from './mysql/schemas/apple.entity';
+import { BananaEntity } from './mysql/schemas/banana.entity';
+import { OrderEntity } from './mysql/schemas/order.entity';
+import { BuyModule } from './buy/buy.module';
+import { CacheModule } from '@nestjs/cache-manager';
+import KeyvRedis from 'keyv-redis';
+import { MongooseModule } from '@nestjs/mongoose';
+import { Cat, CatSchema } from './mongodb/schemas/cat.schema';
 
 @Module({
   imports: [
@@ -45,8 +56,40 @@ import { utilities as nestWinstonModuleUtilities } from 'nest-winston';
         ],
       }),
     }),
+    TypeOrmModule.forRoot({
+      type: 'mysql',
+      host: envConfig().database.host,
+      port: envConfig().database.port,
+      username: envConfig().database.username,
+      password: envConfig().database.password,
+      database: envConfig().database.database,
+      entities: [UserEntity, AppleEntity, BananaEntity, OrderEntity],
+      synchronize: true,
+      // typeorm cho phép ae mình cấu hình cache cho query của mình
+      cache: {
+        type: 'redis',
+        options: {
+          url: 'redis://localhost:6696',
+        },
+      },
+    }),
+    MongooseModule.forRoot('mongodb://localhost:27021'),
+    MongooseModule.forFeature([{ name: Cat.name, schema: CatSchema }]),
+    CacheModule.registerAsync({
+      useFactory: async () => {
+        return {
+          stores: [
+            new KeyvRedis('redis://localhost:6696'),
+          ],
+        };
+      },
+      isGlobal: true,
+    }),
+    // bổ sung cái này thì mới xài đống repository
+    TypeOrmModule.forFeature([UserEntity, AppleEntity, BananaEntity, OrderEntity]),
     AppleModule,
     BananaModule,
+    BuyModule,
   ],
   controllers: [AppController],
   providers: [AppService, MathService, RandomService],
