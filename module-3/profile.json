@@ -1,0 +1,30 @@
+{
+  "id": "113453348335674169476",
+  "displayName": "Nguyễn Văn Tự Cường",
+  "name": {
+    "familyName": "Cường",
+    "givenName": "Nguyễn Văn Tự"
+  },
+  "emails": [
+    {
+      "value": "cuongnvtse160875@gmail.com",
+      "verified": true
+    }
+  ],
+  "photos": [
+    {
+      "value": "https://lh3.googleusercontent.com/a/ACg8ocIync4AfddURi_cLFpqKAXfWkNUljQTebIjhNeSHNCxFjLcYQ=s96-c"
+    }
+  ],
+  "provider": "google",
+  "_raw": "{\n  \"sub\": \"113453348335674169476\",\n  \"name\": \"Nguyễn Văn Tự Cường\",\n  \"given_name\": \"Nguyễn Văn Tự\",\n  \"family_name\": \"Cường\",\n  \"picture\": \"https://lh3.googleusercontent.com/a/ACg8ocIync4AfddURi_cLFpqKAXfWkNUljQTebIjhNeSHNCxFjLcYQ\\u003ds96-c\",\n  \"email\": \"cuongnvtse160875@gmail.com\",\n  \"email_verified\": true\n}",
+  "_json": {
+    "sub": "113453348335674169476",
+    "name": "Nguyễn Văn Tự Cường",
+    "given_name": "Nguyễn Văn Tự",
+    "family_name": "Cường",
+    "picture": "https://lh3.googleusercontent.com/a/ACg8ocIync4AfddURi_cLFpqKAXfWkNUljQTebIjhNeSHNCxFjLcYQ=s96-c",
+    "email": "cuongnvtse160875@gmail.com",
+    "email_verified": true
+  }
+}
