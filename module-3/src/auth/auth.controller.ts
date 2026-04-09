@@ -87,11 +87,16 @@ export class AuthController {
 
   /** Bước 2: Google redirect về — cấp JWT + cookie giống login */
   @Get('google/callback')
+  // call get vào đây => thì nó sẽ kiểm tra uri nếu trên uri mà có
+  // parasm => call từ bên ngoiaf => tự động redirect sang trang auth gg
+  // auth gg sẽ call lại API của anh em để nó gửi mấy cái token xác thực
+  // verify nó
   @UseGuards(AuthGuard('google'))
   async googleCallback(
     @Req() req: Request,
     @Res({ passthrough: true }) res: Response,
   ) {
+    
     const user = req.user as UserEntity;
     const result = await this.authService.loginWithOAuthUser(user);
     this.setRefreshCookie(res, result.refreshToken);
